@@ -8,7 +8,7 @@ This public release was rebuilt from the original competition codebase by removi
 
 The released detector uses a single model and one full-image 896 × 896 pass, with no temporal cues, test-time augmentation, model ensemble, SAHI, extra NMS, or test-time update.
 
-[Overview](#overview) · [Installation](#installation) · [Data](#data) · [Training](#training) · [Inference](#inference) · [Citation](#citation)
+[Overview](#overview) · [Installation](#installation) · [Data](#data) · [Training](#training) · [Inference](#inference) · [Acknowledgements](#acknowledgements)
 
 ## Overview
 
@@ -50,7 +50,7 @@ For the Hafnia build, the checked-in `Dockerfile` installs the same pinned DEIM 
 docker build -t ec-deim-hafnia .
 ```
 
-Download `deim_dfine_hgnetv2_x_obj2coco_24e.pth` from the upstream DEIM model zoo and place it in `weights/`. This is the Objects365-to-COCO checkpoint used in the paper. Its released classifier has 80 COCO rows; the initializer does not accept a raw 365-class head.
+Download `deim_dfine_hgnetv2_x_obj2coco_24e.pth` from the upstream DEIM model zoo and place it in `weights/`. This is the Objects365-to-COCO checkpoint used by the released initialization path. Its released classifier has 80 COCO rows; the initializer does not accept a raw 365-class head.
 
 ## Data
 
@@ -208,7 +208,7 @@ python scripts/train_hafnia.py \
   --checkpoint /path/to/bridge_track6_10c.pth
 ```
 
-Outside a cloud job add `--dataset-path /path/to/eccv-cross-city`.
+Outside a cloud job add `--dataset-path /path/to/track6-dataset`.
 
 ## Inference
 
@@ -247,18 +247,9 @@ python -m compileall -q ecdeim scripts tests
 
 The tests cover checkpoint conversion, OATS/OADC, LoRA, ignore regions, deduplication, and category order.
 
-## Citation
+## Acknowledgements
 
-```bibtex
-@inproceedings{jia2026ecdeim,
-  title     = {{EC-DEIM}: Evidence-Conditioned Multi-Source Pretraining for Cross-City Fine-Grained Object Detection},
-  author    = {Jia, Zili and Wang, Jingyi and Zou, Yingjie and Li, Li},
-  booktitle = {ECCV Workshops},
-  year      = {2026}
-}
-```
-
-Please also cite [DEIM](https://github.com/Intellindust-AI-Lab/DEIM) and [D-FINE](https://github.com/Peterande/D-FINE) when using their implementation or checkpoints.
+EC-DEIM builds on [DEIM](https://github.com/Intellindust-AI-Lab/DEIM) and [D-FINE](https://github.com/Peterande/D-FINE). Please cite these projects when using their implementation or checkpoints.
 
 ## License
 
