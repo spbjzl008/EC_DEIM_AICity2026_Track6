@@ -1,0 +1,81 @@
+stage: pretrain
+
+model:
+  base_config: configs/deim_dfine/dfine_hgnetv2_x_coco.yml
+  deim_revision: 09d35d53d39ee3145a1e61e3a989b28b9468d1dd
+  num_classes: 12
+  image_size: 896
+  sync_bn: false
+  find_unused_parameters: false
+
+training:
+  epochs: 8
+  flat_epochs: 4
+  no_aug_epochs: 1
+  collate_stop_epoch: 7
+  full_image_training: true
+  use_ema: true
+  micro_batch_per_gpu: 5
+  gradient_accumulation_steps: 6
+  workers_per_gpu: 8
+  warmup_iterations: 500
+  checkpoint_frequency: 1
+  print_frequency: 100
+  ema_restart_decay: 0.9998
+  lr_gamma: 0.5
+
+optimizer:
+  lr: 0.00025
+  weight_decay: 0.000125
+  parameter_groups:
+    - params: '^(?=.*backbone)(?!.*norm|bn).*$'
+      lr: 0.0000025
+    - params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn)).*$'
+      weight_decay: 0.0
+
+augmentation:
+  profile: oats_plus_deim_native
+  policy_epochs: [0, 6, 7]
+  base_size_repeat: null
+  mosaic_probability: 0.5
+  mixup_probability: 0.5
+  mixup_epochs: [0, 3]
+  oats:
+    mode_probabilities:
+      whole_image: 0.74
+      random_tile: 0.14
+      rare_object_tile: 0.08
+      empty_tile: 0.04
+    class_center_weights:
+      2: 0.55
+      4: 0.35
+      5: 0.35
+      6: 2.0
+      7: 2.0
+      9: 1.5
+    random_crop_sizes: [640, 800, 896]
+    small_crop_sizes: [512, 640]
+    large_crop_sizes: [800, 896]
+    large_class_ids: [2, 3, 4, 5]
+    small_class_ids: [6, 7, 9]
+    min_visibility_large: 0.60
+    min_visibility_regular: 0.30
+    min_visibility_small: 0.20
+    center_jitter: 0.15
+    max_resample_tries: 10
+    max_objects_empty: 2
+    min_box_side_after_resize: 2.0
+
+evidence:
+  generic_positive_weight: 0.35
+  generic_iou_threshold: 0.30
+  fine_generic_margin: 0.50
+  margin_weight: 0.20
+  bicycle_iou_threshold: 0.30
+  bicycle_coverage_threshold: 0.50
+  positive_class_weights:
+    Vehicle.Trailer: 1.20
+    Vehicle.Motorcycle: 1.35
+    Vehicle.Bicycle: 1.35
+    Vehicle.Van: 1.15
+    Person: 1.10

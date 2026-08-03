@@ -1,0 +1,9 @@
+.data
+.git
+.venv
+__pycache__
+*.pyc
+*.pth
+*.zip
+outputs
+third_party/DEIM

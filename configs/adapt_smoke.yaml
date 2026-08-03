@@ -1,0 +1,14 @@
+extends: adapt.yaml
+
+# Short integration schedule; model, optimizer, LoRA/head hooks and the native
+# DEIM adaptation transform chain are inherited from adapt.yaml.
+training:
+  epochs: 1
+  flat_epochs: 0
+  no_aug_epochs: 0
+  collate_stop_epoch: 1
+  micro_batch_per_gpu: 1
+  gradient_accumulation_steps: 2
+  workers_per_gpu: 0
+  warmup_iterations: 1
+  print_frequency: 1

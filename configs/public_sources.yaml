@@ -1,0 +1,122 @@
+# Convert every source to COCO detection format, then set the paths below.
+# COCO file_name values are resolved relative to each split's images directory.
+sources:
+  - name: BDD100K
+    root: /path/to/BDD100K
+    valid_cap: 2000
+    splits:
+      train: {images: images/train, annotations: annotations/train.json}
+      valid: {images: images/val, annotations: annotations/val.json}
+    mapping:
+      person: Person
+      rider: Person
+      car: Vehicle.Car
+      bus: _Other
+      truck: Vehicle.Truck_Generic
+      bike: Vehicle.Bicycle
+      motor: Vehicle.Motorcycle
+      traffic light: null
+      traffic sign: null
+      train: null
+
+  - name: COCO
+    root: /path/to/COCO
+    valid_cap: 2000
+    splits:
+      train: {images: images/train, annotations: annotations/train.json}
+      valid: {images: images/val, annotations: annotations/val.json}
+    mapping:
+      person: Person
+      bicycle: Vehicle.Bicycle
+      car: Vehicle.Car
+      motorcycle: Vehicle.Motorcycle
+      bus: _Other
+      train: null
+      truck: Vehicle.Truck_Generic
+
+  - name: UA-DETRAC
+    root: /path/to/UA-DETRAC
+    valid_cap: 2500
+    splits:
+      train: {images: images/train, annotations: annotations/train.json}
+      valid: {images: images/val, annotations: annotations/val.json}
+    mapping:
+      car: Vehicle.Car
+      bus: _Other
+      van: Vehicle.Van
+
+  - name: MIO-TCD
+    root: /path/to/MIO-TCD
+    valid_cap: 3000
+    splits:
+      train: {images: images/train, annotations: annotations/train.json}
+      valid: {images: images/val, annotations: annotations/val.json}
+    mapping:
+      articulated_truck: Vehicle.Combo Truck
+      bicycle: Vehicle.Bicycle
+      bus: _Other
+      car: Vehicle.Car
+      motorcycle: Vehicle.Motorcycle
+      motorized_vehicle: _Other
+      non-motorized_vehicle: _Other
+      pedestrian: Person
+      pickup_truck: Vehicle.Pickup Truck
+      single_unit_truck: Vehicle.Single Truck
+      work_van: Vehicle.Van
+
+  - name: nuImages
+    root: /path/to/nuImages
+    valid_cap: 3000
+    splits:
+      train: {images: images/train, annotations: annotations/train.json}
+      valid: {images: images/val, annotations: annotations/val.json}
+    mapping:
+      human.pedestrian.adult: Person
+      human.pedestrian.child: Person
+      human.pedestrian.construction_worker: Person
+      human.pedestrian.personal_mobility: Person
+      human.pedestrian.police_officer: Person
+      human.pedestrian.stroller: Person
+      human.pedestrian.wheelchair: Person
+      vehicle.bicycle: Vehicle.Bicycle
+      vehicle.bus.bendy: _Other
+      vehicle.bus.rigid: _Other
+      vehicle.car: Vehicle.Car
+      vehicle.construction: Vehicle.Heavy Duty Vehicle
+      vehicle.emergency.ambulance: _Other
+      vehicle.emergency.police: Vehicle.Car
+      vehicle.motorcycle: Vehicle.Motorcycle
+      vehicle.trailer: Vehicle.Trailer
+      vehicle.truck: Vehicle.Truck_Generic
+
+  - name: SODA10M
+    root: /path/to/SODA10M
+    valid_cap: 1500
+    splits:
+      train: {images: images/train, annotations: annotations/train.json}
+      valid: {images: images/val, annotations: annotations/val.json}
+    mapping:
+      Pedestrian: Person
+      Cyclist: __ignore_bicycle__
+      Car: Vehicle.Car
+      Truck: Vehicle.Truck_Generic
+      Tram: _Other
+      Tricycle: _Other
+
+  - name: VisDrone2019
+    root: /path/to/VisDrone2019
+    valid_cap: 1500
+    splits:
+      train: {images: images/train, annotations: annotations/train.json}
+      valid: {images: images/val, annotations: annotations/val.json}
+    mapping:
+      pedestrian: Person
+      person: Person
+      bicycle: __ignore_bicycle__
+      car: Vehicle.Car
+      van: Vehicle.Van
+      truck: Vehicle.Truck_Generic
+      tricycle: _Other
+      awning-tricycle: _Other
+      bus: _Other
+      motor: Vehicle.Motorcycle
